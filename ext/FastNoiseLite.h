@@ -189,7 +189,7 @@ public:
     void SetFractalType(FractalType fractalType) { mFractalType = fractalType; }
 
     /// <summary>
-    /// Sets octave count for all fractal noise types 
+    /// Sets octave count for all fractal noise types
     /// </summary>
     /// <remarks>
     /// Default: 3
@@ -260,7 +260,7 @@ public:
     /// <remarks>
     /// Default: 1.0
     /// Note: Setting this higher than 1 will cause artifacts
-    /// </remarks> 
+    /// </remarks>
     void SetCellularJitter(float cellularJitter) { mCellularJitterModifier = cellularJitter; }
 
 
@@ -292,10 +292,9 @@ public:
     /// <returns>
     /// Noise output bounded between -1...1
     /// </returns>
-    template <typename FNfloat>
-    float GetNoise(FNfloat x, FNfloat y)
+
+    float GetNoise(double x, double y)
     {
-        Arguments_must_be_floating_point_values<FNfloat>();
 
         TransformNoiseCoordinate(x, y);
 
@@ -318,10 +317,9 @@ public:
     /// <returns>
     /// Noise output bounded between -1...1
     /// </returns>
-    template <typename FNfloat>
-    float GetNoise(FNfloat x, FNfloat y, FNfloat z)
+
+    float GetNoise(double x, double y, double z)
     {
-        Arguments_must_be_floating_point_values<FNfloat>();
 
         TransformNoiseCoordinate(x, y, z);
 
@@ -347,10 +345,9 @@ public:
     /// <code>DomainWarp(x, y)
     /// noise = GetNoise(x, y)</code>
     /// </example>
-    template <typename FNfloat>
-    void DomainWarp(FNfloat& x, FNfloat& y)
+
+    void DomainWarp(double& x, double& y)
     {
-        Arguments_must_be_floating_point_values<FNfloat>();
 
         switch (mFractalType)
         {
@@ -374,10 +371,9 @@ public:
     /// <code>DomainWarp(x, y, z)
     /// noise = GetNoise(x, y, z)</code>
     /// </example>
-    template <typename FNfloat>
-    void DomainWarp(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void DomainWarp(double& x, double& y, double& z)
     {
-        Arguments_must_be_floating_point_values<FNfloat>();
 
         switch (mFractalType)
         {
@@ -394,9 +390,6 @@ public:
     }
 
 private:
-    template <typename T>
-    struct Arguments_must_be_floating_point_values;
-
     enum TransformType3D
     {
         TransformType3D_None,
@@ -446,11 +439,11 @@ private:
 
     static float FastSqrt(float f) { return sqrtf(f); }
 
-    template <typename FNfloat>
-    static int FastFloor(FNfloat f) { return f >= 0 ? (int)f : (int)f - 1; }
 
-    template <typename FNfloat>
-    static int FastRound(FNfloat f) { return f >= 0 ? (int)(f + 0.5f) : (int)(f - 0.5f); }
+    static int FastFloor(double f) { return f >= 0 ? (int)f : (int)f - 1; }
+
+
+    static int FastRound(double f) { return f >= 0 ? (int)(f + 0.5f) : (int)(f - 0.5f); }
 
     static float Lerp(float a, float b, float t) { return a + t * (b - a); }
 
@@ -613,8 +606,8 @@ private:
 
     // Generic noise gen
 
-    template <typename FNfloat>
-    float GenNoiseSingle(int seed, FNfloat x, FNfloat y)
+
+    float GenNoiseSingle(int seed, double x, double y)
     {
         switch (mNoiseType)
         {
@@ -635,8 +628,8 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    float GenNoiseSingle(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float GenNoiseSingle(int seed, double x, double y, double z)
     {
         switch (mNoiseType)
         {
@@ -660,8 +653,8 @@ private:
 
     // Noise Coordinate Transforms (frequency, and possible skew or rotation)
 
-    template <typename FNfloat>
-    void TransformNoiseCoordinate(FNfloat& x, FNfloat& y)
+
+    void TransformNoiseCoordinate(double& x, double& y)
     {
         x *= mFrequency;
         y *= mFrequency;
@@ -671,9 +664,9 @@ private:
         case NoiseType_OpenSimplex2:
         case NoiseType_OpenSimplex2S:
             {
-                const FNfloat SQRT3 = (FNfloat)1.7320508075688772935274463415059;
-                const FNfloat F2 = 0.5f * (SQRT3 - 1);
-                FNfloat t = (x + y) * F2;
+                const double SQRT3 = (double)1.7320508075688772935274463415059;
+                const double F2 = 0.5f * (SQRT3 - 1);
+                double t = (x + y) * F2;
                 x += t;
                 y += t;
             }
@@ -683,8 +676,8 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    void TransformNoiseCoordinate(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void TransformNoiseCoordinate(double& x, double& y, double& z)
     {
         x *= mFrequency;
         y *= mFrequency;
@@ -694,28 +687,28 @@ private:
         {
         case TransformType3D_ImproveXYPlanes:
             {
-                FNfloat xy = x + y;
-                FNfloat s2 = xy * -(FNfloat)0.211324865405187;
-                z *= (FNfloat)0.577350269189626;
+                double xy = x + y;
+                double s2 = xy * -(double)0.211324865405187;
+                z *= (double)0.577350269189626;
                 x += s2 - z;
                 y = y + s2 - z;
-                z += xy * (FNfloat)0.577350269189626;
+                z += xy * (double)0.577350269189626;
             }
             break;
         case TransformType3D_ImproveXZPlanes:
             {
-                FNfloat xz = x + z;
-                FNfloat s2 = xz * -(FNfloat)0.211324865405187;
-                y *= (FNfloat)0.577350269189626;
+                double xz = x + z;
+                double s2 = xz * -(double)0.211324865405187;
+                y *= (double)0.577350269189626;
                 x += s2 - y;
                 z += s2 - y;
-                y += xz * (FNfloat)0.577350269189626;
+                y += xz * (double)0.577350269189626;
             }
             break;
         case TransformType3D_DefaultOpenSimplex2:
             {
-                const FNfloat R3 = (FNfloat)(2.0 / 3.0);
-                FNfloat r = (x + y + z) * R3; // Rotation, not skew
+                const double R3 = (double)(2.0 / 3.0);
+                double r = (x + y + z) * R3; // Rotation, not skew
                 x = r - x;
                 y = r - y;
                 z = r - z;
@@ -754,17 +747,17 @@ private:
 
     // Domain Warp Coordinate Transforms
 
-    template <typename FNfloat>
-    void TransformDomainWarpCoordinate(FNfloat& x, FNfloat& y)
+
+    void TransformDomainWarpCoordinate(double& x, double& y)
     {
         switch (mDomainWarpType)
         {
         case DomainWarpType_OpenSimplex2:
         case DomainWarpType_OpenSimplex2Reduced:
             {
-                const FNfloat SQRT3 = (FNfloat)1.7320508075688772935274463415059;
-                const FNfloat F2 = 0.5f * (SQRT3 - 1);
-                FNfloat t = (x + y) * F2;
+                const double SQRT3 = (double)1.7320508075688772935274463415059;
+                const double F2 = 0.5f * (SQRT3 - 1);
+                double t = (x + y) * F2;
                 x += t;
                 y += t;
             }
@@ -774,35 +767,35 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    void TransformDomainWarpCoordinate(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void TransformDomainWarpCoordinate(double& x, double& y, double& z)
     {
         switch (mWarpTransformType3D)
         {
         case TransformType3D_ImproveXYPlanes:
             {
-                FNfloat xy = x + y;
-                FNfloat s2 = xy * -(FNfloat)0.211324865405187;
-                z *= (FNfloat)0.577350269189626;
+                double xy = x + y;
+                double s2 = xy * -(double)0.211324865405187;
+                z *= (double)0.577350269189626;
                 x += s2 - z;
                 y = y + s2 - z;
-                z += xy * (FNfloat)0.577350269189626;
+                z += xy * (double)0.577350269189626;
             }
             break;
         case TransformType3D_ImproveXZPlanes:
             {
-                FNfloat xz = x + z;
-                FNfloat s2 = xz * -(FNfloat)0.211324865405187;
-                y *= (FNfloat)0.577350269189626;
+                double xz = x + z;
+                double s2 = xz * -(double)0.211324865405187;
+                y *= (double)0.577350269189626;
                 x += s2 - y;
                 z += s2 - y;
-                y += xz * (FNfloat)0.577350269189626;
+                y += xz * (double)0.577350269189626;
             }
             break;
         case TransformType3D_DefaultOpenSimplex2:
             {
-                const FNfloat R3 = (FNfloat)(2.0 / 3.0);
-                FNfloat r = (x + y + z) * R3; // Rotation, not skew
+                const double R3 = (double)(2.0 / 3.0);
+                double r = (x + y + z) * R3; // Rotation, not skew
                 x = r - x;
                 y = r - y;
                 z = r - z;
@@ -841,8 +834,8 @@ private:
 
     // Fractal FBm
 
-    template <typename FNfloat>
-    float GenFractalFBm(FNfloat x, FNfloat y)
+
+    float GenFractalFBm(double x, double y)
     {
         int seed = mSeed;
         float sum = 0;
@@ -862,8 +855,8 @@ private:
         return sum;
     }
 
-    template <typename FNfloat>
-    float GenFractalFBm(FNfloat x, FNfloat y, FNfloat z)
+
+    float GenFractalFBm(double x, double y, double z)
     {
         int seed = mSeed;
         float sum = 0;
@@ -887,8 +880,8 @@ private:
 
     // Fractal Ridged
 
-    template <typename FNfloat>
-    float GenFractalRidged(FNfloat x, FNfloat y)
+
+    float GenFractalRidged(double x, double y)
     {
         int seed = mSeed;
         float sum = 0;
@@ -908,8 +901,8 @@ private:
         return sum;
     }
 
-    template <typename FNfloat>
-    float GenFractalRidged(FNfloat x, FNfloat y, FNfloat z)
+
+    float GenFractalRidged(double x, double y, double z)
     {
         int seed = mSeed;
         float sum = 0;
@@ -931,10 +924,10 @@ private:
     }
 
 
-    // Fractal PingPong 
+    // Fractal PingPong
 
-    template <typename FNfloat>
-    float GenFractalPingPong(FNfloat x, FNfloat y)
+
+    float GenFractalPingPong(double x, double y)
     {
         int seed = mSeed;
         float sum = 0;
@@ -954,8 +947,8 @@ private:
         return sum;
     }
 
-    template <typename FNfloat>
-    float GenFractalPingPong(FNfloat x, FNfloat y, FNfloat z)
+
+    float GenFractalPingPong(double x, double y, double z)
     {
         int seed = mSeed;
         float sum = 0;
@@ -979,8 +972,8 @@ private:
 
     // Simplex/OpenSimplex2 Noise
 
-    template <typename FNfloat>
-    float SingleSimplex(int seed, FNfloat x, FNfloat y)
+
+    float SingleSimplex(int seed, double x, double y)
     {
         // 2D OpenSimplex2 case uses the same algorithm as ordinary Simplex.
 
@@ -989,8 +982,8 @@ private:
 
         /*
          * --- Skew moved to TransformNoiseCoordinate method ---
-         * const FNfloat F2 = 0.5f * (SQRT3 - 1);
-         * FNfloat s = (x + y) * F2;
+         * const double F2 = 0.5f * (SQRT3 - 1);
+         * double s = (x + y) * F2;
          * x += s; y += s;
         */
 
@@ -1050,15 +1043,15 @@ private:
         return (n0 + n1 + n2) * 99.83685446303647f;
     }
 
-    template <typename FNfloat>
-    float SingleOpenSimplex2(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SingleOpenSimplex2(int seed, double x, double y, double z)
     {
         // 3D OpenSimplex2 case uses two offset rotated cube grids.
 
         /*
          * --- Rotation moved to TransformNoiseCoordinate method ---
-         * const FNfloat R3 = (FNfloat)(2.0 / 3.0);
-         * FNfloat r = (x + y + z) * R3; // Rotation, not skew
+         * const double R3 = (double)(2.0 / 3.0);
+         * double r = (x + y + z) * R3; // Rotation, not skew
          * x = r - x; y = r - y; z = r - z;
         */
 
@@ -1152,18 +1145,18 @@ private:
 
     // OpenSimplex2S Noise
 
-    template <typename FNfloat>
-    float SingleOpenSimplex2S(int seed, FNfloat x, FNfloat y)
+
+    float SingleOpenSimplex2S(int seed, double x, double y)
     {
         // 2D OpenSimplex2S case is a modified 2D simplex noise.
 
-        const FNfloat SQRT3 = (FNfloat)1.7320508075688772935274463415059;
-        const FNfloat G2 = (3 - SQRT3) / 6;
+        const double SQRT3 = (double)1.7320508075688772935274463415059;
+        const double G2 = (3 - SQRT3) / 6;
 
         /*
          * --- Skew moved to TransformNoiseCoordinate method ---
-         * const FNfloat F2 = 0.5f * (SQRT3 - 1);
-         * FNfloat s = (x + y) * F2;
+         * const double F2 = 0.5f * (SQRT3 - 1);
+         * double s = (x + y) * F2;
          * x += s; y += s;
         */
 
@@ -1283,15 +1276,15 @@ private:
         return value * 18.24196194486065f;
     }
 
-    template <typename FNfloat>
-    float SingleOpenSimplex2S(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SingleOpenSimplex2S(int seed, double x, double y, double z)
     {
         // 3D OpenSimplex2S case uses two offset rotated cube grids.
 
         /*
          * --- Rotation moved to TransformNoiseCoordinate method ---
-         * const FNfloat R3 = (FNfloat)(2.0 / 3.0);
-         * FNfloat r = (x + y + z) * R3; // Rotation, not skew
+         * const double R3 = (double)(2.0 / 3.0);
+         * double r = (x + y + z) * R3; // Rotation, not skew
          * x = r - x; y = r - y; z = r - z;
         */
 
@@ -1479,8 +1472,8 @@ private:
 
     // Cellular Noise
 
-    template <typename FNfloat>
-    float SingleCellular(int seed, FNfloat x, FNfloat y)
+
+    float SingleCellular(int seed, double x, double y)
     {
         int xr = FastRound(x);
         int yr = FastRound(y);
@@ -1609,8 +1602,8 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    float SingleCellular(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SingleCellular(int seed, double x, double y, double z)
     {
         int xr = FastRound(x);
         int yr = FastRound(y);
@@ -1766,8 +1759,8 @@ private:
 
     // Perlin Noise
 
-    template <typename FNfloat>
-    float SinglePerlin(int seed, FNfloat x, FNfloat y)
+
+    float SinglePerlin(int seed, double x, double y)
     {
         int x0 = FastFloor(x);
         int y0 = FastFloor(y);
@@ -1791,8 +1784,8 @@ private:
         return Lerp(xf0, xf1, ys) * 1.4247691104677813f;
     }
 
-    template <typename FNfloat>
-    float SinglePerlin(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SinglePerlin(int seed, double x, double y, double z)
     {
         int x0 = FastFloor(x);
         int y0 = FastFloor(y);
@@ -1830,8 +1823,8 @@ private:
 
     // Value Cubic Noise
 
-    template <typename FNfloat>
-    float SingleValueCubic(int seed, FNfloat x, FNfloat y)
+
+    float SingleValueCubic(int seed, double x, double y)
     {
         int x1 = FastFloor(x);
         int y1 = FastFloor(y);
@@ -1860,8 +1853,8 @@ private:
             ys) * (1 / (1.5f * 1.5f));
     }
 
-    template <typename FNfloat>
-    float SingleValueCubic(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SingleValueCubic(int seed, double x, double y, double z)
     {
         int x1 = FastFloor(x);
         int y1 = FastFloor(y);
@@ -1917,8 +1910,8 @@ private:
 
     // Value Noise
 
-    template <typename FNfloat>
-    float SingleValue(int seed, FNfloat x, FNfloat y)
+
+    float SingleValue(int seed, double x, double y)
     {
         int x0 = FastFloor(x);
         int y0 = FastFloor(y);
@@ -1937,8 +1930,8 @@ private:
         return Lerp(xf0, xf1, ys);
     }
 
-    template <typename FNfloat>
-    float SingleValue(int seed, FNfloat x, FNfloat y, FNfloat z)
+
+    float SingleValue(int seed, double x, double y, double z)
     {
         int x0 = FastFloor(x);
         int y0 = FastFloor(y);
@@ -1969,8 +1962,8 @@ private:
 
     // Domain Warp
 
-    template <typename FNfloat>
-    void DoSingleDomainWarp(int seed, float amp, float freq, FNfloat x, FNfloat y, FNfloat& xr, FNfloat& yr)
+
+    void DoSingleDomainWarp(int seed, float amp, float freq, double x, double y, double& xr, double& yr)
     {
         switch (mDomainWarpType)
         {
@@ -1986,8 +1979,8 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    void DoSingleDomainWarp(int seed, float amp, float freq, FNfloat x, FNfloat y, FNfloat z, FNfloat& xr, FNfloat& yr, FNfloat& zr)
+
+    void DoSingleDomainWarp(int seed, float amp, float freq, double x, double y, double z, double& xr, double& yr, double& zr)
     {
         switch (mDomainWarpType)
         {
@@ -2006,30 +1999,30 @@ private:
 
     // Domain Warp Single Wrapper
 
-    template <typename FNfloat>
-    void DomainWarpSingle(FNfloat& x, FNfloat& y)
+
+    void DomainWarpSingle(double& x, double& y)
     {
         int seed = mSeed;
         float amp = mDomainWarpAmp * mFractalBounding;
         float freq = mFrequency;
 
-        FNfloat xs = x;
-        FNfloat ys = y;
+        double xs = x;
+        double ys = y;
         TransformDomainWarpCoordinate(xs, ys);
 
         DoSingleDomainWarp(seed, amp, freq, xs, ys, x, y);
     }
 
-    template <typename FNfloat>
-    void DomainWarpSingle(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void DomainWarpSingle(double& x, double& y, double& z)
     {
         int seed = mSeed;
         float amp = mDomainWarpAmp * mFractalBounding;
         float freq = mFrequency;
 
-        FNfloat xs = x;
-        FNfloat ys = y;
-        FNfloat zs = z;
+        double xs = x;
+        double ys = y;
+        double zs = z;
         TransformDomainWarpCoordinate(xs, ys, zs);
 
         DoSingleDomainWarp(seed, amp, freq, xs, ys, zs, x, y, z);
@@ -2038,8 +2031,8 @@ private:
 
     // Domain Warp Fractal Progressive
 
-    template <typename FNfloat>
-    void DomainWarpFractalProgressive(FNfloat& x, FNfloat& y)
+
+    void DomainWarpFractalProgressive(double& x, double& y)
     {
         int seed = mSeed;
         float amp = mDomainWarpAmp * mFractalBounding;
@@ -2047,8 +2040,8 @@ private:
 
         for (int i = 0; i < mOctaves; i++)
         {
-            FNfloat xs = x;
-            FNfloat ys = y;
+            double xs = x;
+            double ys = y;
             TransformDomainWarpCoordinate(xs, ys);
 
             DoSingleDomainWarp(seed, amp, freq, xs, ys, x, y);
@@ -2059,8 +2052,8 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    void DomainWarpFractalProgressive(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void DomainWarpFractalProgressive(double& x, double& y, double& z)
     {
         int seed = mSeed;
         float amp = mDomainWarpAmp * mFractalBounding;
@@ -2068,9 +2061,9 @@ private:
 
         for (int i = 0; i < mOctaves; i++)
         {
-            FNfloat xs = x;
-            FNfloat ys = y;
-            FNfloat zs = z;
+            double xs = x;
+            double ys = y;
+            double zs = z;
             TransformDomainWarpCoordinate(xs, ys, zs);
 
             DoSingleDomainWarp(seed, amp, freq, xs, ys, zs, x, y, z);
@@ -2084,11 +2077,11 @@ private:
 
     // Domain Warp Fractal Independant
 
-    template <typename FNfloat>
-    void DomainWarpFractalIndependent(FNfloat& x, FNfloat& y)
+
+    void DomainWarpFractalIndependent(double& x, double& y)
     {
-        FNfloat xs = x;
-        FNfloat ys = y;
+        double xs = x;
+        double ys = y;
         TransformDomainWarpCoordinate(xs, ys);
 
         int seed = mSeed;
@@ -2105,12 +2098,12 @@ private:
         }
     }
 
-    template <typename FNfloat>
-    void DomainWarpFractalIndependent(FNfloat& x, FNfloat& y, FNfloat& z)
+
+    void DomainWarpFractalIndependent(double& x, double& y, double& z)
     {
-        FNfloat xs = x;
-        FNfloat ys = y;
-        FNfloat zs = z;
+        double xs = x;
+        double ys = y;
+        double zs = z;
         TransformDomainWarpCoordinate(xs, ys, zs);
 
         int seed = mSeed;
@@ -2130,11 +2123,11 @@ private:
 
     // Domain Warp Basic Grid
 
-    template <typename FNfloat>
-    void SingleDomainWarpBasicGrid(int seed, float warpAmp, float frequency, FNfloat x, FNfloat y, FNfloat& xr, FNfloat& yr)
+
+    void SingleDomainWarpBasicGrid(int seed, float warpAmp, float frequency, double x, double y, double& xr, double& yr)
     {
-        FNfloat xf = x * frequency;
-        FNfloat yf = y * frequency;
+        double xf = x * frequency;
+        double yf = y * frequency;
 
         int x0 = FastFloor(xf);
         int y0 = FastFloor(yf);
@@ -2163,12 +2156,12 @@ private:
         yr += Lerp(ly0x, ly1x, ys) * warpAmp;
     }
 
-    template <typename FNfloat>
-    void SingleDomainWarpBasicGrid(int seed, float warpAmp, float frequency, FNfloat x, FNfloat y, FNfloat z, FNfloat& xr, FNfloat& yr, FNfloat& zr)
+
+    void SingleDomainWarpBasicGrid(int seed, float warpAmp, float frequency, double x, double y, double z, double& xr, double& yr, double& zr)
     {
-        FNfloat xf = x * frequency;
-        FNfloat yf = y * frequency;
-        FNfloat zf = z * frequency;
+        double xf = x * frequency;
+        double yf = y * frequency;
+        double zf = z * frequency;
 
         int x0 = FastFloor(xf);
         int y0 = FastFloor(yf);
@@ -2225,8 +2218,8 @@ private:
 
     // Domain Warp Simplex/OpenSimplex2
 
-    template <typename FNfloat>
-    void SingleDomainWarpSimplexGradient(int seed, float warpAmp, float frequency, FNfloat x, FNfloat y, FNfloat& xr, FNfloat& yr, bool outGradOnly)
+
+    void SingleDomainWarpSimplexGradient(int seed, float warpAmp, float frequency, double x, double y, double& xr, double& yr, bool outGradOnly)
     {
         const float SQRT3 = 1.7320508075688772935274463415059f;
         const float G2 = (3 - SQRT3) / 6;
@@ -2236,8 +2229,8 @@ private:
 
         /*
          * --- Skew moved to TransformNoiseCoordinate method ---
-         * const FNfloat F2 = 0.5f * (SQRT3 - 1);
-         * FNfloat s = (x + y) * F2;
+         * const double F2 = 0.5f * (SQRT3 - 1);
+         * double s = (x + y) * F2;
          * x += s; y += s;
         */
 
@@ -2323,8 +2316,8 @@ private:
         yr += vy * warpAmp;
     }
 
-    template <typename FNfloat>
-    void SingleDomainWarpOpenSimplex2Gradient(int seed, float warpAmp, float frequency, FNfloat x, FNfloat y, FNfloat z, FNfloat& xr, FNfloat& yr, FNfloat& zr, bool outGradOnly)
+
+    void SingleDomainWarpOpenSimplex2Gradient(int seed, float warpAmp, float frequency, double x, double y, double z, double& xr, double& yr, double& zr, bool outGradOnly)
     {
         x *= frequency;
         y *= frequency;
@@ -2332,8 +2325,8 @@ private:
 
         /*
          * --- Rotation moved to TransformDomainWarpCoordinate method ---
-         * const FNfloat R3 = (FNfloat)(2.0 / 3.0);
-         * FNfloat r = (x + y + z) * R3; // Rotation, not skew
+         * const double R3 = (double)(2.0 / 3.0);
+         * double r = (x + y + z) * R3; // Rotation, not skew
          * x = r - x; y = r - y; z = r - z;
         */
 
@@ -2443,13 +2436,6 @@ private:
         zr += vz * warpAmp;
     }
 };
-
-template <>
-struct FastNoiseLite::Arguments_must_be_floating_point_values<float> {};
-template <>
-struct FastNoiseLite::Arguments_must_be_floating_point_values<double> {};
-template <>
-struct FastNoiseLite::Arguments_must_be_floating_point_values<long double> {};
 
 template <typename T>
 const T FastNoiseLite::Lookup<T>::Gradients2D[] =

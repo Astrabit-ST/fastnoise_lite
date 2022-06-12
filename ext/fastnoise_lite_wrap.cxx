@@ -1846,8 +1846,9 @@ int SWIG_Ruby_arity( VALUE proc, int minimal )
 
 #define SWIGTYPE_p_FastNoiseLite swig_types[0]
 #define SWIGTYPE_p_char swig_types[1]
-static swig_type_info *swig_types[3];
-static swig_module_info swig_module = {swig_types, 2, 0, 0, 0, 0};
+#define SWIGTYPE_p_double swig_types[2]
+static swig_type_info *swig_types[4];
+static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2042,6 +2043,16 @@ SWIG_AsVal_float (VALUE obj, float *val)
     }
   }  
   return res;
+}
+
+
+  #define SWIG_From_double   rb_float_new 
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_float  (float value)
+{    
+  return SWIG_From_double  (value);
 }
 
 static swig_class SwigClassFastNoiseLite;
@@ -2567,6 +2578,324 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_FastNoiseLite_GetNoise__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  FastNoiseLite *arg1 = (FastNoiseLite *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_FastNoiseLite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "FastNoiseLite *","GetNoise", 1, self )); 
+  }
+  arg1 = reinterpret_cast< FastNoiseLite * >(argp1);
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","GetNoise", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "double","GetNoise", 3, argv[1] ));
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (float)(arg1)->GetNoise(arg2,arg3);
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_FastNoiseLite_GetNoise__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  FastNoiseLite *arg1 = (FastNoiseLite *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 3) || (argc > 3)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_FastNoiseLite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "FastNoiseLite *","GetNoise", 1, self )); 
+  }
+  arg1 = reinterpret_cast< FastNoiseLite * >(argp1);
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","GetNoise", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "double","GetNoise", 3, argv[1] ));
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(argv[2], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "double","GetNoise", 4, argv[2] ));
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (float)(arg1)->GetNoise(arg2,arg3,arg4);
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_FastNoiseLite_GetNoise(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[5];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 5) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FastNoiseLite, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_FastNoiseLite_GetNoise__SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FastNoiseLite, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_FastNoiseLite_GetNoise__SWIG_1(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 5, "FastNoiseLite.GetNoise", 
+    "    float FastNoiseLite.GetNoise(double x, double y)\n"
+    "    float FastNoiseLite.GetNoise(double x, double y, double z)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_FastNoiseLite_DomainWarp__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  FastNoiseLite *arg1 = (FastNoiseLite *) 0 ;
+  double *arg2 = 0 ;
+  double *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_FastNoiseLite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "FastNoiseLite *","DomainWarp", 1, self )); 
+  }
+  arg1 = reinterpret_cast< FastNoiseLite * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "double &","DomainWarp", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "double &","DomainWarp", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(argv[1], &argp3, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "double &","DomainWarp", 3, argv[1] )); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "double &","DomainWarp", 3, argv[1])); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  (arg1)->DomainWarp(*arg2,*arg3);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_FastNoiseLite_DomainWarp__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  FastNoiseLite *arg1 = (FastNoiseLite *) 0 ;
+  double *arg2 = 0 ;
+  double *arg3 = 0 ;
+  double *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  
+  if ((argc < 3) || (argc > 3)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_FastNoiseLite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "FastNoiseLite *","DomainWarp", 1, self )); 
+  }
+  arg1 = reinterpret_cast< FastNoiseLite * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "double &","DomainWarp", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "double &","DomainWarp", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(argv[1], &argp3, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "double &","DomainWarp", 3, argv[1] )); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "double &","DomainWarp", 3, argv[1])); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(argv[2], &argp4, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), Ruby_Format_TypeError( "", "double &","DomainWarp", 4, argv[2] )); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "double &","DomainWarp", 4, argv[2])); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  (arg1)->DomainWarp(*arg2,*arg3,*arg4);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_FastNoiseLite_DomainWarp(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[5];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 5) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FastNoiseLite, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_FastNoiseLite_DomainWarp__SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FastNoiseLite, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_FastNoiseLite_DomainWarp__SWIG_1(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 5, "FastNoiseLite.DomainWarp", 
+    "    void FastNoiseLite.DomainWarp(double &x, double &y)\n"
+    "    void FastNoiseLite.DomainWarp(double &x, double &y, double &z)\n");
+  
+  return Qnil;
+}
+
+
 SWIGINTERN void
 free_FastNoiseLite(void *self) {
     FastNoiseLite *arg1 = (FastNoiseLite *)self;
@@ -2578,18 +2907,22 @@ free_FastNoiseLite(void *self) {
 
 static swig_type_info _swigt__p_FastNoiseLite = {"_p_FastNoiseLite", "FastNoiseLite *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FastNoiseLite,
   &_swigt__p_char,
+  &_swigt__p_double,
 };
 
 static swig_cast_info _swigc__p_FastNoiseLite[] = {  {&_swigt__p_FastNoiseLite, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FastNoiseLite,
   _swigc__p_char,
+  _swigc__p_double,
 };
 
 
@@ -2892,6 +3225,8 @@ SWIGEXPORT void Init_fastnoise_lite(void) {
   rb_define_method(SwigClassFastNoiseLite.klass, "SetCellularJitter", VALUEFUNC(_wrap_FastNoiseLite_SetCellularJitter), -1);
   rb_define_method(SwigClassFastNoiseLite.klass, "SetDomainWarpType", VALUEFUNC(_wrap_FastNoiseLite_SetDomainWarpType), -1);
   rb_define_method(SwigClassFastNoiseLite.klass, "SetDomainWarpAmp", VALUEFUNC(_wrap_FastNoiseLite_SetDomainWarpAmp), -1);
+  rb_define_method(SwigClassFastNoiseLite.klass, "GetNoise", VALUEFUNC(_wrap_FastNoiseLite_GetNoise), -1);
+  rb_define_method(SwigClassFastNoiseLite.klass, "DomainWarp", VALUEFUNC(_wrap_FastNoiseLite_DomainWarp), -1);
   SwigClassFastNoiseLite.mark = 0;
   SwigClassFastNoiseLite.destroy = (void (*)(void *)) free_FastNoiseLite;
   SwigClassFastNoiseLite.trackObjects = 0;
